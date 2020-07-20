@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Multiplayer Snake</title>
+<script src="app.js"></script>
+<script>
+	function escalar() {
+		let wrapper = document.getElementById("wrapper");
+		//calculamos el margen del nav para que le canvas quede centrado
+		let margen_lateral = (document.body.clientWidth - wrapper.offsetWidth) / 2;
+		//asignamos a los elementos sus margenes
+		wrapper.style.marginLeft = margen_lateral + 'px';
+	
+		let hs = document.getElementById("highscores");
+		margen_lateral = (wrapper.offsetWidth-hs.offsetWidth)/2;
+		hs.style.marginLeft = margen_lateral + 'px';
+	}
+</script>
+<link rel="stylesheet" href="style.css"></link>
+</head>
+<body onload="init()" onresize="escalar()">
+
+	<p><span id="username"></span><span style="margin-left:20px;" id="userid"></span></p>
+	<div id="wrapper">
+
+		<table id="highscores">
+			<caption>HIGHSCORES</caption>
+			<thead>
+				<tr>
+					<th></th>
+					<th>Player</th>
+					<th>User ID</th>
+					<th>Score</th>
+				</tr>
+			</thead>
+			<tbody></tbody>
+		</table>
+
+		<div id="menu">
+			<p>
+				Room: <input type="text" id="room-request" placeholder="Room1" />
+			</p>
+			<button id="crear-btn" onclick="createRoom()">Create</button>
+			<button id="unirse-btn" onclick="joinRoom()">Join</button>
+		</div>
+
+		<div id="game-zone" style="display: none;">
+			<h2 id="room-name"></h2>
+			<h3 id="player-names"></h3>
+			<canvas id="playground" width="640" height="480"></canvas>
+			<button id="start-btn" onclick="startGame()" style="display:none;" disabled="disabled">Start</button>
+			<button id="leave-btn" onclick="leaveGame()">Leave</button>
+			<div id="console-container">
+				<div id="console"></div>
+			</div>
+		</div>
+		<div id="queue-zone" style="display: none;">
+			<h1> Trying to join (5 seconds) </h1>
+			<p> The room is full, you are in queue </p>
+			<button id="cancel-btn" onclick="cancelJoin()">Cancel</button>
+		</div>
+	</div>
+
+</body>
+</html>
